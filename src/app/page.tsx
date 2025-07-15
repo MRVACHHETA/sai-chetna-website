@@ -9,7 +9,6 @@ import {
   Watch,
   Headphones,
   Tv,
-  Refrigerator,
   Mouse,
 } from "lucide-react";
 
@@ -38,12 +37,12 @@ const categories = [
     description: "Covers, Glass, USB Cables, Neckbands, Speakers, Power Banks",
     link: "#",
   },
-{
-  name: "Home Appliances",
-  icon: <Refrigerator className="w-6 h-6" />, // 👈 Change from <Tv /> to <Refrigerator />
-  description: "TVs, Refrigerators, Fans, Mixers, ACs",
-  link: "#",
-},
+  {
+    name: "Home Appliances",
+    icon: <Tv className="w-6 h-6" />,
+    description: "TVs, Refrigerators, Fans, Mixers, ACs",
+    link: "#",
+  },
   {
     name: "Computer Accessories",
     icon: <Mouse className="w-6 h-6" />,
