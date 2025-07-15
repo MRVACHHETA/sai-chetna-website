@@ -4,13 +4,13 @@ import withPWA from "next-pwa";
 const baseConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true as true, // ✅ Fixes TypeScript red underline
+    serverActions: true, // ✅ This is allowed in Next.js 14+
   },
 };
 
+// ✅ Final export: apply PWA config
 export default withPWA({
   dest: "public",
   register: true,
   skipWaiting: true,
-  ...baseConfig,
-});
+})(baseConfig); // 👈 No red lines here
