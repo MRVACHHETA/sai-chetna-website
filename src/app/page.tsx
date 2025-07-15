@@ -10,12 +10,12 @@ import {
   Headphones,
   Tv,
   Mouse,
-} from "lucide-react";
+} from "lucide-react"; // ✅ Removed Refrigerator
 
 const categories = [
   {
     name: "Smartphones",
-    icon: <Phone className="w-6 h-6" />, 
+    icon: <Phone className="w-6 h-6" />,
     description: "Vivo, Oppo, Redmi, Tecno, Infinix, Realme, Samsung",
     link: "/products/smartphones/vivo",
   },
