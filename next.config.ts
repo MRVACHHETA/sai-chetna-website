@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import withPWA from "next-pwa";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const baseConfig = {
+  reactStrictMode: true,
+  experimental: {
+    serverActions: true as true, // ✅ Fixes TypeScript red underline
+  },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  ...baseConfig,
+});
