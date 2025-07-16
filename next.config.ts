@@ -1,16 +1,16 @@
 // next.config.ts
 import withPWA from "next-pwa";
 
-const baseConfig = {
+const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    serverActions: true, // ✅ This is allowed in Next.js 14+
-  },
+  // ⚠️ REMOVE `serverActions: true` from experimental — it’s invalid now
 };
 
-// ✅ Final export: apply PWA config
-export default withPWA({
+const pwaConfig = {
   dest: "public",
   register: true,
   skipWaiting: true,
-})(baseConfig); // 👈 No red lines here
+  disable: process.env.NODE_ENV === "development",
+};
+
+export default withPWA(pwaConfig)(nextConfig);
