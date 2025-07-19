@@ -31,7 +31,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className="antialiased bg-white text-gray-900">
-        <header className="sticky top-0 z-50 bg-white shadow-sm">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-3 py-3">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">

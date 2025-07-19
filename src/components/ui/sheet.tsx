@@ -23,7 +23,7 @@ const SheetContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-50 bg-white p-4 shadow-lg transition-transform duration-300 ease-in-out",
-        side === "left" && "left-0 top-0 h-full w-64",
+        side === "left" && "left-0 top-0 h-full w-80",
         side === "right" && "right-0 top-0 h-full w-64",
         side === "top" && "top-0 left-0 w-full h-64",
         side === "bottom" && "bottom-0 left-0 w-full h-64",
