@@ -61,7 +61,7 @@ export default function RootLayout({
                 <SheetTrigger>
                   <Menu className="h-6 w-6 text-gray-800" />
                 </SheetTrigger>
-                <SheetContent side="left">
+                <SheetContent side="right" className="w-64">
                   <div className="mt-10 flex flex-col gap-4 text-base font-medium text-gray-700">
                     <Link href="/">Home</Link>
                     <Link href="/offers">Offers</Link>

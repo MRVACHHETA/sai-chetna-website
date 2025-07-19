@@ -16,11 +16,13 @@ const SheetContent = React.forwardRef<
   }
 >(({ side = "right", className, children, ...props }, ref) => (
   <SheetPrimitive.Portal>
-    <SheetPrimitive.Overlay className="fixed inset-0 bg-black/30 z-50" />
+    {/* ✅ Light transparent overlay with blur */}
+    <SheetPrimitive.Overlay className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm" />
+
     <SheetPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed z-50 bg-white p-4 shadow-lg transition ease-in-out",
+        "fixed z-50 bg-white p-4 shadow-lg transition-transform duration-300 ease-in-out",
         side === "left" && "left-0 top-0 h-full w-64",
         side === "right" && "right-0 top-0 h-full w-64",
         side === "top" && "top-0 left-0 w-full h-64",
@@ -29,14 +31,16 @@ const SheetContent = React.forwardRef<
       )}
       {...props}
     >
-      {/* Optional Close Button */}
+      {/* ✅ Close button */}
       <SheetPrimitive.Close className="absolute top-4 right-4">
         <X className="h-5 w-5 text-gray-800" />
       </SheetPrimitive.Close>
+
       {children}
     </SheetPrimitive.Content>
   </SheetPrimitive.Portal>
 ));
+
 SheetContent.displayName = "SheetContent";
 
 export { Sheet, SheetTrigger, SheetContent };

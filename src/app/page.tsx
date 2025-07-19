@@ -71,9 +71,11 @@ export default function HomePage() {
           Sai Chetna Mobile & Electronics
         </h1>
          <div className="overflow-hidden h-10 mb-6">
-        <div className="whitespace-nowrap animate-slide px-4 text-lg text-center text-blue-600 font-medium">
-          🔥 Huge Discounts on Vivo & Samsung Phones! | 🎧 Accessories Starting at ₹99 | 🧊 AC & TV Sale Live Now! | Visit Our Showroom Today!
-        </div>
+        <div className="overflow-hidden whitespace-nowrap bg-blue-50">
+  <div className="animate-marquee inline-block min-w-full px-4 py-2 text-sm sm:text-base text-blue-600 font-medium">
+    🔥 Huge Discounts on Vivo & Samsung Phones! | 🎧 Accessories Starting at ₹99 | 🧊 AC & TV Sale Live Now! | Visit Our Showroom Today!
+  </div>
+</div>
       </div>
       </div>
 
