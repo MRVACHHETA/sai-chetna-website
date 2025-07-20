@@ -1,4 +1,3 @@
-// ✅ Updated app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
@@ -31,7 +30,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className="antialiased bg-white text-gray-900">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-md shadow-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-3 py-3">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
@@ -42,7 +41,7 @@ export default function RootLayout({
                 height={60}
                 className="rounded-xl"
               />
-              <span className="text-2xl font-bold text-blue-700 tracking-tight">
+              <span className="text-2xl font-bold text-blue-700 tracking-tight whitespace-nowrap">
                 Sai Chetna
               </span>
             </Link>
@@ -62,7 +61,7 @@ export default function RootLayout({
                   <Menu className="h-6 w-6 text-gray-800" />
                 </SheetTrigger>
                 <SheetContent side="right" className="w-64">
-                  <div className="mt-10 flex flex-col gap-4 text-base font-medium text-gray-700">
+                  <div className="mt-14 flex flex-col gap-5 text-base font-medium text-gray-700 px-2">
                     <Link href="/">Home</Link>
                     <Link href="/offers">Offers</Link>
                     <Link href="/about">About</Link>

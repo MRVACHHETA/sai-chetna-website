@@ -67,23 +67,25 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 p-4">
       {/* Header with logo centered above brand name */}
       <div className="flex flex-col items-center justify-center mb-6">
-        <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 mt-2 text-center">
+        <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 mt-2 text-center logo-text">
           Sai Chetna Mobile & Electronics
         </h1>
-         <div className="overflow-hidden h-10 mb-6">
-        <div className="overflow-hidden whitespace-nowrap bg-blue-50">
-  <div className="animate-marquee inline-block min-w-full px-4 py-2 text-sm sm:text-base text-blue-600 font-medium">
-    🔥 Huge Discounts on Vivo & Samsung Phones! | 🎧 Accessories Starting at ₹99 | 🧊 AC & TV Sale Live Now! | Visit Our Showroom Today!
-  </div>
-</div>
-      </div>
+        <div className="overflow-hidden h-10 mb-6">
+          <div className="overflow-hidden whitespace-nowrap bg-blue-50">
+            <div className="w-full overflow-hidden">
+              <div className="whitespace-nowrap animate-marquee px-4 text-sm md:text-lg text-center text-blue-600 font-medium">
+                🔥 Huge Discounts on Vivo & Samsung Phones! | 🎧 Accessories Starting at ₹99 | 🧊 AC & TV Sale Live Now! | Visit Our Showroom Today!
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <p className="text-center text-lg text-gray-600 mb-6">
         Explore Our First Floor Product Categories
       </p>
 
-      {/* Responsive Banner with fixed height */}
+      {/* Responsive Banner */}
       <div
         ref={sliderRef}
         className="keen-slider max-w-5xl mx-auto mb-10 rounded-xl overflow-hidden shadow-xl"
