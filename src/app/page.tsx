@@ -66,7 +66,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 p-4">
       {/* Header with logo centered above brand name */}
-      <div className="flex flex-col items-center justify-center mb-6">
+      <div className="flex flex-col overflow-hidden items-center justify-center mb-6">
         <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 mt-2 text-center logo-text">
           Sai Chetna Mobile & Electronics
         </h1>
