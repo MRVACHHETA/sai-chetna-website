@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 
 export default function RepairBookingPage() {
-  const [brand, setBrand] = useState("");
+  // const [brand, setBrand] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [city, setCity] = useState("");
