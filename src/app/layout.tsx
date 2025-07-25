@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Sai Chetna Mobile & Electronics",
@@ -47,12 +48,20 @@ export default function RootLayout({
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden sm:flex gap-4 text-sm font-medium text-gray-700">
+            <div className="hidden sm:flex items-center gap-4 text-sm font-medium text-gray-700">
               <Link href="/">Home</Link>
               <Link href="/offers">Offers</Link>
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
-            </nav>
+
+              {/* Login Button */}
+              <a
+                href="/custom-login/index.html"
+                className="ml-4 px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow"
+              >
+                Login
+              </a>
+            </div>
 
             {/* Mobile Hamburger Menu */}
             <div className="sm:hidden">
@@ -66,6 +75,12 @@ export default function RootLayout({
                     <Link href="/offers">Offers</Link>
                     <Link href="/about">About</Link>
                     <Link href="/contact">Contact</Link>
+                    <a
+                      href="/custom-login/index.html"
+                      className="bg-blue-600 text-white px-4 py-1.5 rounded-md hover:bg-blue-700 transition"
+                    >
+                      Login
+                    </a>
                   </div>
                 </SheetContent>
               </Sheet>

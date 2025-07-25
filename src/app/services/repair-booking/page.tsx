@@ -234,7 +234,9 @@ export default function RepairBookingPage() {
             onCheckedChange={(v) => setAgreed(!!v)}
           />
           <Label htmlFor="agree">
-            I agree to ₹50 checking + delivery charges
+            {pickup
+              ? "I agree to ₹50 checking + delivery charges"
+              : "I agree to ₹50 checking charges only (no delivery)"}
           </Label>
         </div>
 
