@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "@/lib/mongodb";
+import { connectDB } from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { email, password } = req.body;
 
   try {
-    const db = await connectToDatabase();
+    const db = await connectDB();
     const user = await db.collection("users").findOne({ email });
 
     if (!user) {

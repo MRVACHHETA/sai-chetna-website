@@ -1,15 +1,20 @@
-// lib/mongodb.ts
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+  throw new Error("Please define the MONGODB_URI inside .env.local");
 }
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
+// Define global cache with proper type
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
 
-export async function connectDB() {
+let cached: MongooseCache = (global as any).mongoose || { conn: null, promise: null };
+
+export async function connectDB(): Promise<typeof mongoose> {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
@@ -21,5 +26,6 @@ export async function connectDB() {
 
   cached.conn = await cached.promise;
   (global as any).mongoose = cached;
+
   return cached.conn;
 }
