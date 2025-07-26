@@ -1,27 +1,39 @@
-// app/api/login/route.ts
-import { connectDB } from "@/lib/mongodb"; // ✅ Correct!
-import User from "@/models/User"; // your Mongoose model
+import { connectToDatabase } from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  const { email, password } = await req.json();
+export async function POST(request: Request) {
+  try {
+    const { email, password } = await request.json();
+    console.log("🟡 Received login request:", email);
 
-  await connectDB(); // ✅ Connects to MongoDB
+    const db = await connectToDatabase();
+    console.log("🟢 Connected to DB");
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return new Response(JSON.stringify({ success: false, message: "User not found" }), { status: 401 });
+    const user = await db.collection("users").findOne({ email });
+    if (!user) {
+      console.log("🔴 User not found");
+      return NextResponse.json({ success: false, message: "User not found" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      console.log("🔴 Invalid password");
+      return NextResponse.json({ success: false, message: "Invalid password" });
+    }
+
+    console.log("✅ Login successful for:", user.email);
+
+    return NextResponse.json({
+      success: true,
+      user: {
+        _id: user._id,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    console.error("🔥 Login error:", error);
+    return NextResponse.json({ success: false, message: "Internal Server Error" });
   }
-
-  const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) {
-    return new Response(JSON.stringify({ success: false, message: "Invalid password" }), { status: 401 });
-  }  return new Response(JSON.stringify({
-    success: true,
-    user: {
-      name: user.name,
-      role: user.role,
-      email: user.email,
-    },
-  }), { status: 200 });
 }

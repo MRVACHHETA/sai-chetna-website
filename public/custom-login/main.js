@@ -209,25 +209,35 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  const response = await fetch("/api/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  const result = await response.json();
+    const result = await response.json();
 
-  if (result.success) {
-    // Store session details locally (you can improve later with JWT/session cookies)
-    localStorage.setItem("user", JSON.stringify(result.user));
+    console.log("Login Response:", result); // ✅ Log the server response
 
-    // Redirect based on role
-    if (result.user.role === "super-admin" || result.user.role === "admin" || result.user.role === "staff") {
-      window.location.href = "/admin/dashboard";
+    if (result.success) {
+      localStorage.setItem("user", JSON.stringify(result.user));
+
+      // Redirect based on role
+      if (
+        result.user.role === "super-admin" ||
+        result.user.role === "admin" ||
+        result.user.role === "staff"
+      ) {
+        window.location.href = "/admin/dashboard";
+      } else {
+        window.location.href = "/";
+      }
     } else {
-      window.location.href = "/";
+      alert("Login failed: " + result.message); // ❗ Show error if login fails
     }
-  } else {
-    alert("Login failed: " + result.message);
+  } catch (error) {
+    console.error("Login Error:", error);
+    alert("Something went wrong during login. Please try again.");
   }
 });

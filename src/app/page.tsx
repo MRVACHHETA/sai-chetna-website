@@ -69,12 +69,12 @@ export default function HomePage() {
         {bannerImages.map((src, index) => (
           <div key={index} className="keen-slider__slide">
             <Image
-              src={src}
-              alt={`Banner ${index + 1}`}
-              width={1200}
-              height={400}
-              className="w-full max-h-[300px] object-cover"
-            />
+  src={src}
+  alt={`Banner ${index + 1}`}
+  width={1200}
+  height={400}
+  className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] object-cover"
+/>
           </div>
         ))}
       </div>

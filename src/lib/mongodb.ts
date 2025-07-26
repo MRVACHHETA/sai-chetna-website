@@ -1,31 +1,20 @@
-import mongoose from "mongoose";
+// lib/mongodb.ts
+import { MongoClient } from "mongodb";
 
-const MONGODB_URI = process.env.MONGODB_URI!;
+const uri = process.env.MONGODB_URI;
+const options = {};
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI inside .env.local");
+let client;
+let clientPromise: Promise<MongoClient>;
+
+if (!process.env.MONGODB_URI) {
+  throw new Error("Please add your MongoDB URI to .env.local");
 }
 
-// Define global cache with proper type
-interface MongooseCache {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
-}
+client = new MongoClient(uri!, options);
+clientPromise = client.connect();
 
-let cached: MongooseCache = (global as any).mongoose || { conn: null, promise: null };
-
-export async function connectDB(): Promise<typeof mongoose> {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
-      dbName: "sai-chetna-db",
-      bufferCommands: false,
-    });
-  }
-
-  cached.conn = await cached.promise;
-  (global as any).mongoose = cached;
-
-  return cached.conn;
+export async function connectToDatabase() {
+  const client = await clientPromise;
+  return client.db("sai-chetna-db"); // 👈 this must match your actual database name
 }
