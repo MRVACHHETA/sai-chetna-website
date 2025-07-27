@@ -40,65 +40,71 @@ export default function HomePage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 p-4 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-blue-100 p-4 overflow-x-hidden">
       {/* Header */}
-      <div className="flex flex-col items-center justify-center mb-6 text-center">
-        <h1 className="text-2xl sm:text-4xl font-bold text-blue-800 mt-2 px-4 break-words">
+      <div className="flex flex-col items-center justify-center mb-6 text-center animate-fade-in">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-blue-900 tracking-tight drop-shadow-md px-4">
           Sai Chetna Mobile & Electronics
         </h1>
 
         {/* Marquee */}
-        <div className="overflow-hidden h-10 mb-6 w-full">
-          <div className="overflow-hidden whitespace-nowrap bg-blue-50">
-            <div className="whitespace-nowrap animate-marquee px-4 text-sm md:text-lg text-blue-600 font-medium">
+        <div className="overflow-hidden h-10 mt-4 w-full">
+          <div className="overflow-hidden whitespace-nowrap bg-blue-200 rounded-full">
+            <div className="whitespace-nowrap animate-marquee px-4 text-sm md:text-lg text-blue-800 font-medium">
               🔧 All Spare Parts at Best Prices | 📱 Repair Booking Now Open | 💬 Connect with Nearest Repair Shops Across Cities
             </div>
           </div>
         </div>
       </div>
 
-      <p className="text-center text-lg text-gray-600 mb-6">
+      <p className="text-center text-lg text-gray-700 font-medium mb-6">
         Explore Our Core Services
       </p>
 
       {/* Banner */}
       <div
         ref={sliderRef}
-        className="keen-slider max-w-5xl mx-auto mb-10 rounded-xl overflow-hidden shadow-xl"
+        className="keen-slider max-w-6xl mx-auto mb-12 rounded-3xl overflow-hidden shadow-2xl border border-blue-200"
       >
         {bannerImages.map((src, index) => (
           <div key={index} className="keen-slider__slide">
             <Image
-  src={src}
-  alt={`Banner ${index + 1}`}
-  width={1200}
-  height={400}
-  className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] object-cover"
-/>
+              src={src}
+              alt={`Banner ${index + 1}`}
+              width={1200}
+              height={400}
+              className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px] object-cover"
+            />
           </div>
         ))}
       </div>
 
       {/* Categories */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto px-2 animate-fade-up">
         {categories.map((cat, index) => (
-          <Card
-            key={index}
-            className="hover:shadow-xl transition duration-300 bg-white border border-blue-100"
-          >
-            <CardContent className="flex flex-col items-center justify-center p-6">
-              <div className="mb-3 text-blue-600">{cat.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-blue-800 text-center">
-                {cat.name}
-              </h3>
-              <p className="text-sm text-gray-600 text-center mb-4">
-                {cat.description}
-              </p>
-              <Link href={cat.link} className="w-full">
+          // Added 'group' class to the Link component
+          <Link href={cat.link} key={index} className="group block">
+            <Card
+              className="hover:scale-[1.02] hover:shadow-2xl transition duration-300 ease-in-out bg-white border border-blue-100 rounded-2xl"
+            >
+              <CardContent className="flex flex-col items-center justify-center p-6">
+                {/* Modified this div to have group-hover styles */}
+                <div className="mb-3 p-3 rounded-full bg-blue-100 group-hover:bg-blue-600 transition-colors duration-300">
+                  {/* Cloned the icon to apply group-hover text color directly to it */}
+                  {React.cloneElement(cat.icon, {
+                    className: `${cat.icon.props.className} text-blue-700 group-hover:text-white transition-colors duration-300`,
+                  })}
+                </div>
+                <h3 className="text-2xl font-semibold mb-2 text-blue-900 text-center">
+                  {cat.name}
+                </h3>
+                <p className="text-sm text-gray-600 text-center mb-4 max-w-sm">
+                  {cat.description}
+                </p>
                 <Button className="w-full">Explore</Button>
-              </Link>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>

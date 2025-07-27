@@ -13,9 +13,9 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Phone, MapPin, Settings, Truck, Wrench, AlertCircle } from "lucide-react";
 
 export default function RepairBookingPage() {
-  // const [brand, setBrand] = useState("");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [city, setCity] = useState("");
@@ -29,9 +29,7 @@ export default function RepairBookingPage() {
 
   const toggleService = (service: string) => {
     setServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((s) => s !== service)
-        : [...prev, service]
+      prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
     );
   };
 
@@ -76,15 +74,17 @@ export default function RepairBookingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8 mt-10 bg-gradient-to-br from-white to-blue-50 shadow-2xl rounded-2xl space-y-8">
-      <h1 className="text-3xl font-extrabold text-center text-blue-800 drop-shadow-md">
-        📱 Book Your Mobile Repair
+    <div className="max-w-3xl mx-auto p-8 mt-10 bg-gradient-to-br from-white via-blue-50 to-blue-100 shadow-2xl rounded-2xl space-y-8 border border-blue-200">
+      <h1 className="text-4xl font-extrabold text-center text-blue-900 drop-shadow-sm tracking-tight">
+        📱 Book Mobile Repair
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
         <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
+            <Label htmlFor="name" className="flex items-center gap-2">
+              <Wrench size={16} /> Full Name
+            </Label>
             <Input
               id="name"
               value={name}
@@ -95,7 +95,9 @@ export default function RepairBookingPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="mobile">Mobile Number</Label>
+            <Label htmlFor="mobile" className="flex items-center gap-2">
+              <Phone size={16} /> Mobile Number
+            </Label>
             <Input
               id="mobile"
               value={mobile}
@@ -109,24 +111,25 @@ export default function RepairBookingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label>City</Label>
+            <Label className="flex items-center gap-2">
+              <MapPin size={16} /> City
+            </Label>
             <Select value={city} onValueChange={setCity} required>
               <SelectTrigger>
                 <SelectValue placeholder="Select your city" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Ahmedabad">Ahmedabad</SelectItem>
-                <SelectItem value="Surat">Surat</SelectItem>
-                <SelectItem value="Rajkot">Rajkot</SelectItem>
-                <SelectItem value="Vadodara">Vadodara</SelectItem>
-                <SelectItem value="Bhavnagar">Bhavnagar</SelectItem>
-                <SelectItem value="Others">Others</SelectItem>
+                {["Ahmedabad", "Surat", "Rajkot", "Vadodara", "Bhavnagar", "Others"].map((c) => (
+                  <SelectItem key={c} value={c}>{c}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
           <div>
-            <Label className="block mb-2">Service Type</Label>
+            <Label className="block mb-2 flex items-center gap-2">
+              <Settings size={16} /> Service Type
+            </Label>
             <div className="flex gap-4">
               <Button
                 type="button"
@@ -149,14 +152,7 @@ export default function RepairBookingPage() {
         <div>
           <Label className="block mb-2">Common Issues</Label>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {[
-              "Screen Repair",
-              "Battery Replacement",
-              "Charging Port",
-              "Speaker/Mic Issue",
-              "Camera Fault",
-              "Water Damage",
-            ].map((service) => (
+            {["Screen Repair", "Battery Replacement", "Charging Port", "Speaker/Mic Issue", "Camera Fault", "Water Damage"].map((service) => (
               <div key={service} className="flex items-center gap-2">
                 <Checkbox
                   id={service}
@@ -233,14 +229,14 @@ export default function RepairBookingPage() {
             checked={agreed}
             onCheckedChange={(v) => setAgreed(!!v)}
           />
-          <Label htmlFor="agree">
+          <Label htmlFor="agree" className="text-sm text-muted-foreground">
             {pickup
               ? "I agree to ₹50 checking + delivery charges"
               : "I agree to ₹50 checking charges only (no delivery)"}
           </Label>
         </div>
 
-        <Button type="submit" className="w-full text-lg py-6" disabled={!agreed}>
+        <Button type="submit" className="w-full text-lg py-6 shadow-lg" disabled={!agreed}>
           ✅ Submit Repair Request
         </Button>
       </form>

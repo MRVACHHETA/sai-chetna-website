@@ -241,3 +241,4 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     alert("Something went wrong during login. Please try again.");
   }
 });
+
