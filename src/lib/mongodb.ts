@@ -4,14 +4,13 @@ import { MongoClient } from "mongodb";
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
-  console.warn("⚠️ MongoDB URI not found in environment");
+  throw new Error("❌ MONGODB_URI not set in environment");
 }
 
-const options = {};
-const client = new MongoClient(uri!, options);
+const client = new MongoClient(uri);
 const clientPromise = client.connect();
 
 export async function connectToDatabase() {
   const client = await clientPromise;
-  return client.db("sai-chetna-db"); // your database name
+  return client.db("sai-chetna-db");
 }
