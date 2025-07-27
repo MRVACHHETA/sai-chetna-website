@@ -13,7 +13,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Phone, MapPin, Settings, Truck, Wrench, AlertCircle } from "lucide-react";
+import { Phone, MapPin, Settings, Wrench } from "lucide-react";
 
 export default function RepairBookingPage() {
   const [name, setName] = useState("");

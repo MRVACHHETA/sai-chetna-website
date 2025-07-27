@@ -4,7 +4,7 @@
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
