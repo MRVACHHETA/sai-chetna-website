@@ -3,6 +3,12 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  // Prevent running during build
+  if (process.env.NEXT_RUNTIME === "edge") {
+    console.log("⚠️ Skipping login API during build");
+    return NextResponse.json({ success: false, message: "Login disabled at build time" });
+  }
+
   try {
     const { email, password } = await request.json();
     console.log("🟡 Received login request:", email);
