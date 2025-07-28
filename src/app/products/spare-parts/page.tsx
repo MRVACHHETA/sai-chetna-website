@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Pencil, Trash, ImagePlus, Wand2, Search, RefreshCcw, Loader2, PlusCircle } from "lucide-react";
+import Image from 'next/image'; // Added for Next.js Image component
 
 interface SparePart {
   _id: string;
@@ -46,11 +47,12 @@ export default function SparePartsPage() {
     setLoading(true);
     try {
       const res = await fetch("/api/spare-parts");
-      const data = await res.json();
-      const processedData = data.map((part: SparePart) => ({
+      const data: SparePart[] = await res.json(); // Explicitly type data as SparePart[]
+      const processedData = data.map((part) => ({ // 'part' is now implicitly SparePart
         ...part,
-        price: parseFloat(part.price as any) || 0,
-        quantity: parseInt(part.quantity as any) || 0,
+        // Fix for 'no-explicit-any': Cast to 'unknown as string' for safety before parsing
+        price: parseFloat(part.price as unknown as string) || 0,
+        quantity: parseInt(part.quantity as unknown as string) || 0,
       }));
       setParts(processedData);
     } catch (error) {
@@ -136,13 +138,14 @@ export default function SparePartsPage() {
         return alert("Failed to add: " + error);
       }
 
-      const saved = await res.json();
+      const saved: SparePart = await res.json(); // Explicitly type saved
       setParts((prev) => [
         ...prev,
         {
           ...saved,
-          price: parseFloat(saved.price as any) || 0,
-          quantity: parseInt(saved.quantity as any) || 0,
+          // Fix for 'no-explicit-any': Cast to 'unknown as string' for safety before parsing
+          price: parseFloat(saved.price as unknown as string) || 0,
+          quantity: parseInt(saved.quantity as unknown as string) || 0,
         },
       ]);
       setAddModalOpen(false);
@@ -191,14 +194,15 @@ export default function SparePartsPage() {
         return alert("Failed to update: " + error);
       }
 
-      const updated = await res.json();
+      const updated: SparePart = await res.json(); // Explicitly type updated
       setParts((prev) =>
         prev.map((p) =>
           p._id === _id
             ? {
                 ...updated,
-                price: parseFloat(updated.price as any) || 0,
-                quantity: parseInt(updated.quantity as any) || 0,
+                // Fix for 'no-explicit-any': Cast to 'unknown as string' for safety before parsing
+                price: parseFloat(updated.price as unknown as string) || 0,
+                quantity: parseInt(updated.quantity as unknown as string) || 0,
               }
             : p
         )
@@ -283,9 +287,12 @@ export default function SparePartsPage() {
                   <tr key={part._id} className="border-t hover:bg-blue-50 transition-colors duration-150 ease-in-out">
                     <td className="p-4 whitespace-nowrap">
                       {part.imageUrl ? (
-                        <img
+                        // Fix for 'no-img-element' warning: Use Next.js Image component
+                        <Image
                           src={part.imageUrl}
                           alt={part.name}
+                          width={64} // Corresponds to w-16
+                          height={64} // Corresponds to h-16
                           className="w-16 h-16 object-cover rounded-md shadow-sm border border-gray-200"
                         />
                       ) : (
