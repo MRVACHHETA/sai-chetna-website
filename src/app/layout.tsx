@@ -55,7 +55,6 @@ export default function RootLayout({
       <body className="antialiased bg-white text-gray-900 font-satoshi">
         <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-md shadow-sm border-b border-gray-200">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-3 py-3">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.png"
@@ -69,7 +68,6 @@ export default function RootLayout({
               </span>
             </Link>
 
-            {/* Desktop Nav */}
             <div className="hidden sm:flex items-center gap-4 text-sm font-medium text-gray-700">
               <Link href="/" className="hover:text-blue-600 transition-colors duration-200">Home</Link>
               <Link href="/offers" className="hover:text-blue-600 transition-colors duration-200">Offers</Link>
@@ -78,16 +76,15 @@ export default function RootLayout({
 
               {!loading && (
                 userName ? (
-                  // Desktop Logged-in state: Added Dashboard Link
                   <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-full shadow text-blue-700 font-semibold animate-fade-in-up">
-                    <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer"> {/* Make the user part clickable */}
-                        <div className="w-7 h-7 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-xs">
-                            {avatar}
-                        </div>
-                        <span className="max-w-[120px] truncate">{userName}</span>
+                    <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer">
+                      <div className="w-7 h-7 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-xs">
+                        {avatar}
+                      </div>
+                      <span className="max-w-[120px] truncate">{userName}</span>
                     </Link>
                     <Link href="/admin/dashboard" className="text-xs text-blue-600 hover:underline transition-colors duration-200 ml-2 py-1 px-2 rounded-full hover:bg-blue-100 active:bg-blue-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                        Dashboard {/* Explicit Dashboard button */}
+                      Dashboard
                     </Link>
                     <button
                       onClick={handleLogout}
@@ -107,7 +104,6 @@ export default function RootLayout({
               )}
             </div>
 
-            {/* Mobile Hamburger Menu */}
             <div className="sm:hidden">
               <Sheet>
                 <SheetTrigger asChild>
@@ -124,26 +120,25 @@ export default function RootLayout({
 
                     {!loading && (
                       userName ? (
-                        // Mobile Logged-in state: Added Dashboard Link
                         <div className="flex flex-col gap-2 mt-4 text-gray-700 bg-gray-100 p-3 rounded-lg shadow-inner animate-fade-in-up">
-                            <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer">
-                                <div className="w-7 h-7 rounded-full bg-gray-200 text-gray-800 flex items-center justify-center text-xs">
-                                    {avatar}
-                                </div>
-                                <span>{userName}</span>
-                            </Link>
-                            <Link
-                                href="/admin/dashboard"
-                                className="text-sm text-blue-600 hover:underline transition-colors duration-200 text-left py-2 px-3 rounded-md hover:bg-blue-50 active:bg-blue-100 active:scale-95"
-                            >
-                                Dashboard
-                            </Link>
-                            <button
-                                onClick={handleLogout}
-                                className="text-sm text-red-500 hover:underline active:text-red-600 transition-colors duration-200 text-left py-2 px-3 rounded-md hover:bg-red-50 active:bg-red-100 active:scale-95"
-                            >
-                                Logout
-                            </button>
+                          <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer">
+                            <div className="w-7 h-7 rounded-full bg-gray-200 text-gray-800 flex items-center justify-center text-xs">
+                              {avatar}
+                            </div>
+                            <span>{userName}</span>
+                          </Link>
+                          <Link
+                            href="/admin/dashboard"
+                            className="text-sm text-blue-600 hover:underline transition-colors duration-200 text-left py-2 px-3 rounded-md hover:bg-blue-50 active:bg-blue-100 active:scale-95"
+                          >
+                            Dashboard
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="text-sm text-red-500 hover:underline active:text-red-600 transition-colors duration-200 text-left py-2 px-3 rounded-md hover:bg-red-50 active:bg-red-100 active:scale-95"
+                          >
+                            Logout
+                          </button>
                         </div>
                       ) : (
                         <a
