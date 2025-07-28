@@ -1,15 +1,20 @@
 // src/app/api/spare-parts/[id]/route.ts
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest) {
   try {
-    const { id } = params;
+    const url = new URL(req.url);
+    const id = url.pathname.split("/").pop(); // Extract 'id' from the URL
     const body = await req.json();
 
-    // Fix 1: Use _id: _ to ignore the destructured _id variable, resolving 'no-unused-vars'
-    const { _id: _, ...updateFields } = body;
+    if (!id) {
+      return NextResponse.json({ error: "Missing ID in request." }, { status: 400 });
+    }
+
+    const updateFields = { ...body };
+    delete updateFields._id;
 
     const db = await connectToDatabase();
     const result = await db.collection("spare_parts").updateOne(
@@ -17,8 +22,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       {
         $set: {
           ...updateFields,
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       }
     );
 
@@ -27,18 +32,21 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 
     return NextResponse.json({ modifiedCount: result.modifiedCount });
-  } catch (err: unknown) { // Fix 2: Change 'any' to 'unknown' for better type safety
-    let errorMessage = "An unknown error occurred.";
-    if (err instanceof Error) {
-      errorMessage = err.message;
-    }
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest) {
   try {
-    const { id } = params;
+    const url = new URL(req.url);
+    const id = url.pathname.split("/").pop();
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing ID in request." }, { status: 400 });
+    }
+
     const db = await connectToDatabase();
     const result = await db.collection("spare_parts").deleteOne({ _id: new ObjectId(id) });
 
@@ -47,11 +55,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
 
     return NextResponse.json({ deletedCount: result.deletedCount });
-  } catch (err: unknown) { // Fix 3: Change 'any' to 'unknown' for better type safety
-    let errorMessage = "An unknown error occurred.";
-    if (err instanceof Error) {
-      errorMessage = err.message;
-    }
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
